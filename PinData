@@ -1,0 +1,28 @@
+public class PinData {
+	private String title;
+	private LatLng coord;
+	private String address;
+	private String type;
+	private String review;
+
+	public PinData(String title, LatLng coord, String address, String type, String review) {
+		this.title = title;
+		this.coord = coord;
+		this.address = address;
+		this.type = type;
+		this.review = review;
+	}
+
+	public String getTitle() { return title;}
+	public LatLng getCoords() { return coord;}
+	public String getAddress() { return address;}
+	public String getType() { return type;}
+	public String getReview() { return review;}
+
+	public void setTitle (String title) {this.title = title; }
+	public void setLatLng (LatLng coord) {this.coord = coord; }
+	public void setAddress (String address) {this.address = address; }
+	public void setType (String type) {this.type = type; }
+	public void setReview (String review) {this.review = review; }
+
+}
