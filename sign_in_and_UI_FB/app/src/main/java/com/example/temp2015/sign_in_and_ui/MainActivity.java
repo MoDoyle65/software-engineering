@@ -120,7 +120,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-    private static FirebaseConnection mFirebaseConnection;
+    private FirebaseConnection mFirebaseConnection;
     private DatabaseReference mFirebaseDatabaseReference;
 
 
@@ -129,8 +129,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
     private Button pickerBtn;
     private AutoCompleteTextView myLocation;
     private static final int PLACE_PICKER_FLAG = 1;
-
-
+    private DatabaseReference mFirebaseRef;
     public String name_field;
     public String address_field;
     public String review_field;
@@ -145,7 +144,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().replace(android.R.id.content, fragmentUserManagment);
         fragmentTransaction.commit();
-
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
@@ -168,6 +166,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
+            //mFirebaseConnection = new FirebaseConnection(mFirebaseRef, mFirebaseRef.child(mFirebaseUser.getUid()));
+            //mFirebaseConnection.setEmail(mFirebaseUser.getEmail());
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }
@@ -240,10 +240,16 @@ import com.google.android.gms.maps.model.LatLngBounds;
     }
 
     public void friend(View view) {
-        FragmentFriendManager fragmentFriendManager = new FragmentFriendManager();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().replace(android.R.id.content,fragmentFriendManager);
-        fragmentTransaction.commit();
+        //FragmentFriendManager fragmentFriendManager = new FragmentFriendManager();
+        //FragmentManager fragmentManager = getFragmentManager();
+        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().replace(android.R.id.content,fragmentFriendManager);
+        //fragmentTransaction.commit();
+        String uid = mFirebaseUser.getUid();
+        //mFirebaseConnection = new FirebaseConnection(mFirebaseDatabaseReference,mFirebaseUser);
+        Intent i = new Intent(this, FriendActivity.class);
+        i.putExtra("uid", uid);
+        startActivity(i);
+
     }
 
     public void user(View view) {

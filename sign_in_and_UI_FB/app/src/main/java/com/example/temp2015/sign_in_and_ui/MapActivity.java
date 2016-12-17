@@ -31,7 +31,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         String url = extras.getString("url");
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         pushRef = mFirebaseRef.child(uid).child("Pins");
-        mFirebaseConnection = new FirebaseConnection(pushRef);
+        mFirebaseConnection = new FirebaseConnection(mFirebaseRef,pushRef);
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

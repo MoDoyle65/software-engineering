@@ -17,15 +17,17 @@ public class FirebaseConnection {
 
     private static final String TAG = "FBConnectionActivity";
     private DatabaseReference pushRef;
+    private DatabaseReference rootRef;
 
-    public FirebaseConnection(DatabaseReference pushRef) {
+    public FirebaseConnection(DatabaseReference rootRef, DatabaseReference pushRef) {
         this.pushRef = pushRef;
+        this.rootRef = rootRef;
     }
 
-    public PinHeader createPin(PinData pindata) {
+    public void createPin(PinData pindata) {
         DatabaseReference keyRef = pushRef.push();
         keyRef.setValue(pindata);
-        return pindata.getPinHeader();
+
     }
 
     public void deletePin(String key) {
@@ -37,40 +39,55 @@ public class FirebaseConnection {
         pushRef.child(key).child(field).setValue(change);
     }
 
+    public void setEmail(String email) {
+        pushRef.child("Email").setValue(email);
 
-    public void getPin(String key, PinCallback callback) {
-        PinValueEventListener pinListener = new PinValueEventListener(callback);
-        pushRef.child(key).addListenerForSingleValueEvent(pinListener);
     }
+
 
     public void getUserPinHeaders(PinHeaderCallback callback, GoogleMap googleMap) {
         PinHeaderDownloadListener headListener = new PinHeaderDownloadListener(callback, googleMap);
         pushRef.addValueEventListener(headListener);
     }
 
+    public void checkFriendisUser(Friend friend){
+        PinValueEventListener pinListener = new PinValueEventListener(pushRef, friend);
+        rootRef.addListenerForSingleValueEvent(pinListener);
+    }
+
+
     private static class PinValueEventListener implements ValueEventListener {
 
-        private final PinCallback callback;
+        private final Friend friend;
+        private final DatabaseReference pushRef;
 
-        PinValueEventListener(PinCallback callback) {
-            this.callback = callback;
+        PinValueEventListener(DatabaseReference pushRef, Friend friend) {
+            this.pushRef = pushRef;
+            this.friend = friend;
+
         }
 
         @Override
         public void onDataChange(DataSnapshot dataSnapshot){
-            PinData pindata = dataSnapshot.getValue(PinData.class);
-            if (pindata != null) {
-                this.callback.onPinResult(dataSnapshot.getKey(), pindata);
-                System.out.println(pindata);
-            } else {
-                String message = "data has invalid format: " + dataSnapshot.getValue();
-                this.callback.onCancelled(DatabaseError.fromException(new Throwable(message)));
-            }
-        }
+            String email = friend.getEmail();
+            for (DataSnapshot childSnap: dataSnapshot.getChildren()) {
+                Log.d("snap", childSnap.getKey());
+                Log.d("friend", childSnap.child("Email").getValue().toString());
+                if (childSnap.child("Email").getValue().toString().equals(email)) {
+                    Friend friend = new Friend(email);
+                    pushRef.child("Friends").push().setValue(friend);
+                    break;
+                }
+                else {
+                    System.out.println("Friend not in database");
+                }
 
+            }
+
+        }
         @Override
         public void onCancelled(DatabaseError databaseError){
-            this.callback.onCancelled(databaseError);
+            System.out.println("Error occured");
         }
     }
 

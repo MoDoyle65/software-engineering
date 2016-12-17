@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseError;
 
 public interface PinCallback {
 
-    public void onPinResult(String key, PinData pindata);
+    public void onPinResult(String email);
     public void onCancelled(DatabaseError databaseError);
 
 }

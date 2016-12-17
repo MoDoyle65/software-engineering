@@ -54,10 +54,10 @@ public class PlacePickerActivityTest extends AppCompatActivity {
         //String uid = intent.getStringExtra(MainActivity."uid");
         Bundle extras = getIntent().getExtras();
         String uid = extras.getString("uid");
-        String url = extras.getString("url");
+        //String url = extras.getString("url");
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         pushRef = mFirebaseRef.child(uid).child("Pins");
-        mFirebaseConnection = new FirebaseConnection(pushRef);
+        mFirebaseConnection = new FirebaseConnection(mFirebaseRef, pushRef);
 
 
 
