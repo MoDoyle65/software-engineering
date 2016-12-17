@@ -1,6 +1,7 @@
 package com.example.temp2015.sign_in_and_ui;
 
 /**
+ * Test comment
  * Created by temp2015 on 15-Dec-16.
  */
 import android.content.Intent;
