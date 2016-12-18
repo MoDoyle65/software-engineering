@@ -1,6 +1,7 @@
 package com.example.temp2015.sign_in_and_ui;
 
 /**
+ * Test comment
  * Created by temp2015 on 15-Dec-16.
  */
 import android.content.Intent;
@@ -41,9 +42,8 @@ public class PlacePickerActivityTest extends AppCompatActivity {
     private DatabaseReference mFirebaseRef;
     private DatabaseReference pushRef;
 
-       private static final LatLngBounds BOUNDS_DUBLIN= new LatLngBounds(
-            new LatLng(53.300000, -6.206000), new LatLng(53.400000, -6.306000));
-    //LatLngBounds dublin = new LatLngBounds(new LatLng(53.300000, -6.206000), new LatLng(53.400000, -6.306000));
+    //    private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
+//            new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
     protected GoogleApiClient mGoogleApiClientPlace;
 
     @Override
@@ -69,8 +69,8 @@ public class PlacePickerActivityTest extends AppCompatActivity {
         builder = new PlacePicker.IntentBuilder();
         myLocation = (AutoCompleteTextView) findViewById(R.id.myLocation);
         Log.d("abc"," we are here.................");
-        mPlacesAdapter = new PlacesAutoCompleteAdapter(this, android.R.layout.simple_list_item_1,
-                mGoogleApiClientPlace, BOUNDS_DUBLIN, null);
+//        mPlacesAdapter = new PlacesAutoCompleteAdapter(this, android.R.layout.simple_list_item_1,
+//                mGoogleApiClientPlace, BOUNDS_GREATER_SYDNEY, null);
         myLocation.setOnItemClickListener(mAutocompleteClickListener);
         myLocation.setAdapter(mPlacesAdapter);
         pickerBtn = (Button) findViewById(R.id.pickerBtn);
