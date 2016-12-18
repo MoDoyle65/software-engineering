@@ -37,11 +37,13 @@ public class FriendActivity extends AppCompatActivity {
 
     public static class FriendViewHolder extends RecyclerView.ViewHolder {
         public TextView emailTextView;
+        public TextView nameTextView;
         public CircleImageView friendImageView;
 
         public FriendViewHolder(View v) {
             super(v);
             emailTextView = (TextView) itemView.findViewById(R.id.emailTextView);
+            nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
             friendImageView = (CircleImageView) itemView.findViewById(R.id.friendImageView);
         }
     }
@@ -62,7 +64,7 @@ public class FriendActivity extends AppCompatActivity {
     private EditText mEmailEditText;
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseConnection mFirebaseConnection;
-    private FirebaseRecyclerAdapter<Friend, FriendViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<User, FriendViewHolder> mFirebaseAdapter;
 
 
     @Override
@@ -83,18 +85,26 @@ public class FriendActivity extends AppCompatActivity {
         mFirebaseConnection = new FirebaseConnection(mFirebaseDatabaseReference, mFirebaseDatabaseReference.child(uid));
 
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Friend,
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<User,
                 FriendViewHolder>(
-                Friend.class,
+                User.class,
                 R.layout.item_friend,
                 FriendViewHolder.class,
                 mFirebaseDatabaseReference.child(uid).child("Friends")) {
 
             @Override
             protected void populateViewHolder(FriendViewHolder viewHolder,
-                                              Friend friend, int position) {
+                                              User friend, int position) {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.emailTextView.setText(friend.getEmail());
+                viewHolder.nameTextView.setText(friend.getName());
+                viewHolder.friendImageView.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        //v.getId() will give you the image id
+                        mFirebaseConnection.removeFriend("Friends");
+                    }
+                });
+
                 viewHolder.friendImageView
                         .setImageDrawable(ContextCompat
                                 .getDrawable(FriendActivity.this,
@@ -139,8 +149,8 @@ public class FriendActivity extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Friend friend = new
-                        Friend(mEmailEditText.getText().toString());
+                User friend = new
+                        User("dummy",mEmailEditText.getText().toString(),"dummy");
                 Log.d("friend", friend.getEmail());
                 mFirebaseConnection.checkFriendisUser(friend);
                 mEmailEditText.setText("");

@@ -9,6 +9,6 @@ import com.google.android.gms.maps.GoogleMap;
 
 public interface PinHeaderCallback {
 
-    public void onPinHeaderResult(DataSnapshot childSnap, GoogleMap googleMap);
+    public void onPinHeaderResult(PinData pindata, GoogleMap googleMap);
     public void onCancelled(DatabaseError databaseError);
 }

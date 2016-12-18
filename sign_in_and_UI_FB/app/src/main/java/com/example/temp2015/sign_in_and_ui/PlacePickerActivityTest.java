@@ -56,7 +56,7 @@ public class PlacePickerActivityTest extends AppCompatActivity {
         String uid = extras.getString("uid");
         //String url = extras.getString("url");
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
-        pushRef = mFirebaseRef.child(uid).child("Pins");
+        pushRef = mFirebaseRef.child(uid);
         mFirebaseConnection = new FirebaseConnection(mFirebaseRef, pushRef);
 
 
@@ -105,8 +105,7 @@ public class PlacePickerActivityTest extends AppCompatActivity {
                 case PLACE_PICKER_FLAG:
                     Place place = PlacePicker.getPlace(data, this);
                     latlngCoord latlng = new latlngCoord(place.getLatLng().latitude, place.getLatLng().longitude);
-                    PinHeader phead = new PinHeader("0", latlng);
-                    PinData pdata = new PinData(phead, place.getName().toString(), place.getAddress().toString(), place.getPlaceTypes().toString(),"Shit food");
+                    PinData pdata = new PinData(latlng, place.getName().toString(), place.getAddress().toString(), place.getPlaceTypes().toString(),"Shit food");
                     mFirebaseConnection.createPin(pdata);
                     myLocation.setText(place.getName() + ", " + place.getAddress() + "," + place.getLatLng());
                     LatLng newLatLong = place.getLatLng();

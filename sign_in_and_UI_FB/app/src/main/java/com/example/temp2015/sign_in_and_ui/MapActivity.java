@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private FirebaseConnection mFirebaseConnection;
+    private FirebaseConnection mFirebaseConnection1, mFirebaseConnection2;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mFirebaseRef;
     private DatabaseReference pushRef;
@@ -30,8 +30,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         String uid = extras.getString("uid");
         String url = extras.getString("url");
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
-        pushRef = mFirebaseRef.child(uid).child("Pins");
-        mFirebaseConnection = new FirebaseConnection(mFirebaseRef,pushRef);
+        pushRef = mFirebaseRef.child(uid);
+        mFirebaseConnection1 = new FirebaseConnection(mFirebaseRef,pushRef);
+        mFirebaseConnection2 = new FirebaseConnection(mFirebaseRef,mFirebaseRef.child(uid));
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -53,7 +54,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
 
-        mFirebaseConnection.getUserPinHeaders(pincb, googleMap);
+        mFirebaseConnection1.getUserPinHeaders(pincb, googleMap);
+        mFirebaseConnection2.getFriendsPins(pincb, googleMap);
 
     }
 }

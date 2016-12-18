@@ -11,8 +11,12 @@ public class latlngCoord {
     public latlngCoord(double lat, double lng) {
         this.lat = lat;
         this.lng = lng;
+    }
+
+    public latlngCoord() {
 
     }
+
     public void setLat(double lat) {this.lat = lat;}
     public void setLng(double lng) {this.lng = lng;}
     public double getLat() {return lat;}
