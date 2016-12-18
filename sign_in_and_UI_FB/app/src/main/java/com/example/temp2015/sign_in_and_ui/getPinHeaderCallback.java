@@ -2,6 +2,7 @@ package com.example.temp2015.sign_in_and_ui;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +23,9 @@ public class getPinHeaderCallback implements PinHeaderCallback {
         LatLng newMarker = new LatLng(latd,lngd);
         googleMap.addMarker(new MarkerOptions().position(newMarker)
                 .title(key));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
+  //      LatLng dublin = new LatLng(53.350, -6.266);
+        LatLngBounds dublin = new LatLngBounds(new LatLng(53.300000, -6.206000), new LatLng(53.400000, -6.306000));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(dublin,20));
     }
 
     public void onCancelled(DatabaseError databaseError) {
