@@ -54,12 +54,12 @@ public class FirebaseConnection {
         pushRef.child("Pins").addValueEventListener(headListener);
     }
 
-    public void removeFriend(String friends){
-        pushRef.child(friends).removeValue();
+    public void removeFriend(String friend){
+        pushRef.child("Friends").child(friend).removeValue();
 
     }
     public void checkFriendisUser(User friend){
-        PinValueEventListener pinListener = new PinValueEventListener(pushRef.child("Pins"), friend);
+        PinValueEventListener pinListener = new PinValueEventListener(pushRef, friend);
         rootRef.addListenerForSingleValueEvent(pinListener);
     }
 
