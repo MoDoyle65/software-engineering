@@ -159,7 +159,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mFirebaseConnection = new FirebaseConnection(mFirebaseRef, mFirebaseRef.child(mFirebaseUser.getUid()));
+
         if (mFirebaseUser == null) {
             startActivity(new Intent(this, SignInActivity.class));
             finish();
@@ -167,6 +167,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
             mUser = new User(mFirebaseUser.getDisplayName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid());
+            mFirebaseConnection = new FirebaseConnection(mFirebaseRef, mFirebaseRef.child(mFirebaseUser.getUid()));
             mFirebaseConnection.setUser(mUser);
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
