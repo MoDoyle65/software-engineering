@@ -13,15 +13,16 @@ import com.google.android.gms.maps.GoogleMap;
 
 public class getPinHeaderCallback implements PinHeaderCallback {
 
-    public void onPinHeaderResult(DataSnapshot childSnap, GoogleMap googleMap) {
-        String key = childSnap.getKey();
-        String lat = childSnap.child("pinHeader").child("coord").child("lat").getValue().toString();
-        String lng = childSnap.child("pinHeader").child("coord").child("lng").getValue().toString();
-        double latd = Double.parseDouble(lat);
-        double lngd = Double.parseDouble(lng);
-        LatLng newMarker = new LatLng(latd,lngd);
+    public void onPinHeaderResult(PinData pindata, GoogleMap googleMap) {
+
+
+        double lat = pindata.getCoord().getLat();
+        double lng = pindata.getCoord().getLng();
+        LatLng newMarker = new LatLng(lat,lng);
+
         googleMap.addMarker(new MarkerOptions().position(newMarker)
-                .title(key));
+                .title(pindata.getReview()));
+
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
     }
 

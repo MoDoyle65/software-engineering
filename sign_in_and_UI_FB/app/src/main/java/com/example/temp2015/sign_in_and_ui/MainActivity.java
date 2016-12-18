@@ -110,7 +110,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
     private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
     //private GoogleApiClient mGoogleApiClientPlace;
-    private static final String MESSAGE_URL = "http://friendlychat.firebase.google.com/message/";
+
 
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
@@ -122,7 +122,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
     private FirebaseUser mFirebaseUser;
     private FirebaseConnection mFirebaseConnection;
     private DatabaseReference mFirebaseDatabaseReference;
-
+    private User mUser;
 
     private PlacePicker.IntentBuilder builder;
     private PlacesAutoCompleteAdapter mPlacesAdapter;
@@ -156,18 +156,18 @@ import com.google.android.gms.maps.model.LatLngBounds;
         // Initialize ProgressBar and RecyclerView.
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        //mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseRef = FirebaseDatabase.getInstance().getReference();
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
+        mFirebaseConnection = new FirebaseConnection(mFirebaseRef, mFirebaseRef.child(mFirebaseUser.getUid()));
         if (mFirebaseUser == null) {
             startActivity(new Intent(this, SignInActivity.class));
             finish();
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
-            //mFirebaseConnection = new FirebaseConnection(mFirebaseRef, mFirebaseRef.child(mFirebaseUser.getUid()));
-            //mFirebaseConnection.setEmail(mFirebaseUser.getEmail());
+            mUser = new User(mFirebaseUser.getDisplayName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid());
+            mFirebaseConnection.setUser(mUser);
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }

@@ -16,8 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class FirebaseConnection {
 
     private static final String TAG = "FBConnectionActivity";
-    private DatabaseReference pushRef;
-    private DatabaseReference rootRef;
+    private static DatabaseReference pushRef;
+    private static DatabaseReference rootRef;
 
     public FirebaseConnection(DatabaseReference rootRef, DatabaseReference pushRef) {
         this.pushRef = pushRef;
@@ -25,43 +25,56 @@ public class FirebaseConnection {
     }
 
     public void createPin(PinData pindata) {
-        DatabaseReference keyRef = pushRef.push();
+        DatabaseReference keyRef = pushRef.child("Pins").push();
         keyRef.setValue(pindata);
 
     }
 
     public void deletePin(String key) {
-        pushRef.child(key).removeValue();
+        pushRef.child("Pins").child(key).removeValue();
 
     }
 
     public void modifyPin(String key, String field, String change) {
-        pushRef.child(key).child(field).setValue(change);
+        pushRef.child("Pins").child(key).child(field).setValue(change);
     }
 
-    public void setEmail(String email) {
-        pushRef.child("Email").setValue(email);
+    public void setUser(User mUser) {
+        pushRef.child("UserProfile").setValue(mUser);
 
     }
+    public void getFriendsPins(PinHeaderCallback callback, GoogleMap googleMap) {
+        FriendDownloadListener friendListener = new FriendDownloadListener(callback, googleMap);
+        pushRef.child("Friends").addValueEventListener(friendListener);
 
+    }
 
     public void getUserPinHeaders(PinHeaderCallback callback, GoogleMap googleMap) {
         PinHeaderDownloadListener headListener = new PinHeaderDownloadListener(callback, googleMap);
-        pushRef.addValueEventListener(headListener);
+        pushRef.child("Pins").addValueEventListener(headListener);
     }
 
-    public void checkFriendisUser(Friend friend){
-        PinValueEventListener pinListener = new PinValueEventListener(pushRef, friend);
+    public void removeFriend(String friends){
+        pushRef.child(friends).removeValue();
+
+    }
+    public void checkFriendisUser(User friend){
+        PinValueEventListener pinListener = new PinValueEventListener(pushRef.child("Pins"), friend);
         rootRef.addListenerForSingleValueEvent(pinListener);
     }
+
+    //public void getFriendsPinHeaders(FriendsPinHeaderCallback callback, GoogleMap googleMap) {
+     //   PinHeaderDownloadListener headListener = new PinHeaderDownloadListener(callback, googleMap);
+      //  pushRef.addValueEventListener(headListener);
+   // }
 
 
     private static class PinValueEventListener implements ValueEventListener {
 
-        private final Friend friend;
+        private final User friend;
         private final DatabaseReference pushRef;
 
-        PinValueEventListener(DatabaseReference pushRef, Friend friend) {
+        PinValueEventListener(DatabaseReference pushRef, User friend) {
             this.pushRef = pushRef;
             this.friend = friend;
 
@@ -71,11 +84,9 @@ public class FirebaseConnection {
         public void onDataChange(DataSnapshot dataSnapshot){
             String email = friend.getEmail();
             for (DataSnapshot childSnap: dataSnapshot.getChildren()) {
-                Log.d("snap", childSnap.getKey());
-                Log.d("friend", childSnap.child("Email").getValue().toString());
-                if (childSnap.child("Email").getValue().toString().equals(email)) {
-                    Friend friend = new Friend(email);
-                    pushRef.child("Friends").push().setValue(friend);
+                User friendFB = childSnap.child("UserProfile").getValue(User.class);
+                if (friendFB.getEmail().equals(email)) {
+                    pushRef.child("Friends").child(friendFB.getUid()).setValue(friendFB);
                     break;
                 }
                 else {
@@ -103,8 +114,38 @@ public class FirebaseConnection {
 
         @Override
         public void onDataChange(DataSnapshot dataSnapshot){
+            System.out.println(dataSnapshot.getValue());
             for (DataSnapshot childSnap: dataSnapshot.getChildren()) {
-                this.callback.onPinHeaderResult(childSnap, googleMap);
+                PinData pindata = childSnap.getValue(PinData.class);
+                this.callback.onPinHeaderResult(pindata, googleMap);
+
+            }
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError){
+            this.callback.onCancelled(databaseError);
+        }
+
+    }
+
+    private static class FriendDownloadListener implements ValueEventListener {
+
+        private final PinHeaderCallback callback;
+        private final GoogleMap googleMap;
+
+        FriendDownloadListener(PinHeaderCallback callback, GoogleMap googleMap) {
+            this.callback = callback;
+            this.googleMap = googleMap;
+        }
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot){
+            for (DataSnapshot childSnap: dataSnapshot.getChildren()) {
+                User myFriend = childSnap.getValue(User.class);
+                Log.d("User:", myFriend.getEmail());
+                System.out.println(myFriend.getEmail());
+                PinHeaderDownloadListener pinfriendListener = new PinHeaderDownloadListener(callback, googleMap);
+                rootRef.child(myFriend.getUid()).child("Pins").addListenerForSingleValueEvent(pinfriendListener);
 
             }
         }
