@@ -94,14 +94,14 @@ public class FriendActivity extends AppCompatActivity {
 
             @Override
             protected void populateViewHolder(FriendViewHolder viewHolder,
-                                              User friend, int position) {
+                                              final User friend, int position) {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.emailTextView.setText(friend.getEmail());
                 viewHolder.nameTextView.setText(friend.getName());
                 viewHolder.friendImageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         //v.getId() will give you the image id
-                        mFirebaseConnection.removeFriend("Friends");
+                        mFirebaseConnection.removeFriend(friend.getUid());
                     }
                 });
 
