@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffc916"
+                    android:orientation="vertical">
+
+                    <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/fragment_user_manager"
+                        android:name="com.example.temp2015.tabbing_method.FragmentUserManagment"
+                        tools:layout="@layout/fragment_user_manager">
+                    </fragment>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#da8200"
+                    android:orientation="vertical">
+
+                    <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/fragment_notification_manager"
+                        android:name="com.example.temp2015.tabbing_method.FragmentNotificationManager"
+                        tools:layout="@layout/fragment_notification_manager">
+                    </fragment>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#5b89ff"
+                    android:orientation="vertical">
+
+                    <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/fragment_review_manager"
+                        android:name="com.example.temp2015.tabbing_method.FragmentReviewManager"
+                        tools:layout="@layout/fragment_review_manager">
+                    </fragment>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F81512"
+                    android:orientation="vertical">
+
+                    <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/fragment_friend_manager"
+                        android:name="com.example.temp2015.tabbing_method.FragmentFriendManager"
+                        tools:layout="@layout/fragment_friend_manager">
+                    </fragment>
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>
