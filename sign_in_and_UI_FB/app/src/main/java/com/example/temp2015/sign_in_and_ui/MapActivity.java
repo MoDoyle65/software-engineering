@@ -1,5 +1,7 @@
 package com.example.temp2015.sign_in_and_ui;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,6 +46,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
     private static final String TAG = "TAG";
     private FirebaseConnection mFirebaseConnection1, mFirebaseConnection2;
     private FirebaseDatabase mFirebaseDatabase;
@@ -185,15 +188,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         }
-        updateLocationUI();
+        updateLocationUI(googleMap);
     }
     @SuppressWarnings("MissingPermission")
-    private void updateLocationUI() {
+    private void updateLocationUI(GoogleMap googleMap) {
         if (googleMap == null) {
             return;
         }
         if (mLocationPermissionGranted) {
             googleMap.setMyLocationEnabled(true);
+            //googleMap.getUiSettings().setCompassEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         } else {
             googleMap.setMyLocationEnabled(false);
@@ -203,7 +207,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        updateLocationUI();
+        updateLocationUI(googleMap);
         if (mCameraPosition != null) {
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
         } else if (mCurrentLocation != null) {
