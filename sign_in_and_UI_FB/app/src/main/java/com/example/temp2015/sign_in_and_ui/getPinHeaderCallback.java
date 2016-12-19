@@ -24,7 +24,7 @@ public class getPinHeaderCallback implements PinHeaderCallback {
                 .title(pindata.getReview())
                 .snippet(pindata.getAddress()));
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
     }
 
     public void onCancelled(DatabaseError databaseError) {
