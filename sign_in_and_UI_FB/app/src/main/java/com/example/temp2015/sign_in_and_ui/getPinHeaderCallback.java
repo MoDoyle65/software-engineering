@@ -21,7 +21,8 @@ public class getPinHeaderCallback implements PinHeaderCallback {
         LatLng newMarker = new LatLng(lat,lng);
 
         googleMap.addMarker(new MarkerOptions().position(newMarker)
-                .title(pindata.getReview()));
+                .title(pindata.getReview())
+                .snippet(pindata.getAddress()));
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
     }
