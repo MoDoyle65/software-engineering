@@ -1,10 +1,12 @@
 package com.example.temp2015.tabbing_method;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -65,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public String name_field;
     public String address_field;
     public String review_field;
+    private TabHost.TabSpec spec;
+    private TabHost.TabSpec spec1;
+    private TabHost.TabSpec spec2;
+    private TabHost.TabSpec spec3;
+
+    private FragmentFriendManager fragmentfriendmanager;
+    private FragmentNotificationManager fragmentnotifymanager;
+    private FragmentReviewManager fragmentreviewmanager;
+    private FragmentMapManager fragmentmapmanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,28 +117,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         host.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("MAP");
+        spec = host.newTabSpec("MAP");
         spec.setContent(R.id.tab1);
         spec.setIndicator("MAP");
         host.addTab(spec);
 
         //Tab 2
-        spec = host.newTabSpec("Notify");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("Notify");
-        host.addTab(spec);
+        spec1 = host.newTabSpec("Notify");
+        spec1.setContent(R.id.tab2);
+        spec1.setIndicator("Notify");
+        host.addTab(spec1);
 
         //Tab 3
-        spec = host.newTabSpec("Review");
-        spec.setContent(R.id.tab3);
-        spec.setIndicator("Review");
-        host.addTab(spec);
+        spec2 = host.newTabSpec("Review");
+        spec2.setContent(R.id.tab3);
+        spec2.setIndicator("Review");
+        host.addTab(spec2);
 
         // Tab 4
-        spec = host.newTabSpec("Friends");
-        spec.setContent(R.id.tab4);
-        spec.setIndicator("Friends");
-        host.addTab(spec);
+        spec3 = host.newTabSpec("Friends");
+        spec3.setContent(R.id.tab4);
+        spec3.setIndicator("Friends");
+        host.addTab(spec3);
 
         host.setOnTabChangedListener(this);
 
@@ -156,13 +167,55 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onTabChanged(String tabId) {
             Log.d("123456789", tabId);
-          if (tabId =="MAP")
+          if (tabId.equals("MAP"))
           {
-              //tabHost.clearAnimation();
+
+              fragmentmapmanager = new FragmentMapManager();
+              FragmentManager fragmentmanager = getFragmentManager();
+              android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentmapmanager);
+              ft.commit();
+              host.getTabContentView();
           }
-            //host.refreshDrawableState();
-            //host.destroyDrawingCache();
-            //host.getTabContentView().refreshDrawableState();
+
+        if (tabId.equals("Notify"))
+        {
+
+            fragmentnotifymanager = new FragmentNotificationManager();
+            FragmentManager fragmentmanager = getFragmentManager();
+            android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentnotifymanager);
+            ft.commit();
+            host.getTabContentView();
+        }
+
+        if (tabId.equals("Friends"))
+        {
+            fragmentfriendmanager = new FragmentFriendManager();
+            FragmentManager fragmentmanager = getFragmentManager();
+            android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentfriendmanager);
+            ft.commit();
+            host.getTabContentView();
+        }
+
+        if (tabId.equals("Review"))
+        {
+            fragmentreviewmanager = new FragmentReviewManager();
+            FragmentManager fragmentmanager = getFragmentManager();
+            //this.getFragmentManager().beginTransaction().remove(fragmentreviewmanager).commit();
+            //this.getFragmentManager().beginTransaction().remove(fragmentmapmanager).commit();
+            //this.getFragmentManager().beginTransaction().remove(fragmentfriendmanager).commit();
+            //this.getFragmentManager().beginTransaction().remove(fragmentnotifymanager).commit();
+
+
+            android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentreviewmanager);
+            ft.commit();
+
+            this.getFragmentManager().beginTransaction().remove(fragmentreviewmanager).commit();
+            host.getTabContentView();
+
+        }
+
+
+
     }
 
 
