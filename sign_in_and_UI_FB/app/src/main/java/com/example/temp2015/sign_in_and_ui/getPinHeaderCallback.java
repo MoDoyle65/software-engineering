@@ -15,7 +15,6 @@ public class getPinHeaderCallback implements PinHeaderCallback {
 
     public void onPinHeaderResult(PinData pindata, GoogleMap googleMap) {
 
-
         double lat = pindata.getCoord().getLat();
         double lng = pindata.getCoord().getLng();
         LatLng newMarker = new LatLng(lat,lng);

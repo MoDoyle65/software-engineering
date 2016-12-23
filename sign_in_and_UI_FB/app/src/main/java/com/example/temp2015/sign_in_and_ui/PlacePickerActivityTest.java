@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.example.temp2015.sign_in_and_ui;
 
 /**

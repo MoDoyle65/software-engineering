@@ -77,9 +77,7 @@ public class FirebaseConnection {
         PinValueEventListener(DatabaseReference pushRef, User friend) {
             this.pushRef = pushRef;
             this.friend = friend;
-
         }
-
         @Override
         public void onDataChange(DataSnapshot dataSnapshot){
             String email = friend.getEmail();
@@ -92,9 +90,7 @@ public class FirebaseConnection {
                 else {
                     System.out.println("Friend not in database");
                 }
-
             }
-
         }
         @Override
         public void onCancelled(DatabaseError databaseError){
@@ -111,7 +107,6 @@ public class FirebaseConnection {
             this.callback = callback;
             this.googleMap = googleMap;
         }
-
         @Override
         public void onDataChange(DataSnapshot dataSnapshot){
             System.out.println(dataSnapshot.getValue());
@@ -137,7 +132,6 @@ public class FirebaseConnection {
             this.callback = callback;
             this.googleMap = googleMap;
         }
-
         @Override
         public void onDataChange(DataSnapshot dataSnapshot){
             for (DataSnapshot childSnap: dataSnapshot.getChildren()) {
@@ -146,7 +140,6 @@ public class FirebaseConnection {
                 System.out.println(myFriend.getEmail());
                 PinHeaderDownloadListener pinfriendListener = new PinHeaderDownloadListener(callback, googleMap);
                 rootRef.child(myFriend.getUid()).child("Pins").addListenerForSingleValueEvent(pinfriendListener);
-
             }
         }
         @Override

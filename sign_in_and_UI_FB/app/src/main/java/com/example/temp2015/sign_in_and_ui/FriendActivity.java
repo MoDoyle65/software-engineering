@@ -109,10 +109,10 @@ public class FriendActivity extends AppCompatActivity {
                         .setImageDrawable(ContextCompat
                                 .getDrawable(FriendActivity.this,
                                             R.drawable.ic_account_circle_black_36dp));
-
             }
 
         };
+
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -144,7 +144,6 @@ public class FriendActivity extends AppCompatActivity {
             }
         });
 
-
         mAddButton = (Button) findViewById(R.id.addButton);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +155,6 @@ public class FriendActivity extends AppCompatActivity {
                 mEmailEditText.setText("");
             }
         });
-
 
     }
 
