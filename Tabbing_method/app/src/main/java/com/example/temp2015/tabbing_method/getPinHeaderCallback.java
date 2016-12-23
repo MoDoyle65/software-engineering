@@ -33,7 +33,7 @@ public class getPinHeaderCallback implements PinHeaderCallback {
         }
 
     }
-    
+
     public void onCancelled(DatabaseError databaseError) {
         System.out.println("Error encountered");
 

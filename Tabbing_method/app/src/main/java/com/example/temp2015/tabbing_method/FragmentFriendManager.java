@@ -52,7 +52,7 @@ public class FragmentFriendManager extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View friendLayout = inflater.inflate(R.layout.fragment_friend_manager,container,false);
-       link = (Linker) getActivity();
+        link = (Linker) getActivity();
         String uid = link.getString();
         mProgressBar = (ProgressBar) friendLayout.findViewById(R.id.progressBar);
         mEmailRecyclerView = (RecyclerView) friendLayout.findViewById(R.id.emailRecyclerView);
@@ -117,8 +117,7 @@ public class FragmentFriendManager extends Fragment {
             public void afterTextChanged(Editable editable) {
             }
         });
-
-
+        
         mAddButton = (Button) friendLayout.findViewById(R.id.addButton);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
