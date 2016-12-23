@@ -24,10 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, Linker {
 
-<<<<<<< HEAD
+
     private TabHost tabHost;
-=======
->>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
+
     private TabHost host;
     private static final String TAG = "MainActivity";
 
@@ -41,15 +40,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private User mUser;
     private DatabaseReference mFirebaseRef;
     private String uid;
-<<<<<<< HEAD
 
-    public String name_field;
-    public String address_field;
-    public String review_field;
-
-
-=======
->>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,12 +104,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         spec.setContent(R.id.tab4);
         spec.setIndicator("Friends");
         host.addTab(spec);
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
     }
 
     @Override
@@ -141,10 +127,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
