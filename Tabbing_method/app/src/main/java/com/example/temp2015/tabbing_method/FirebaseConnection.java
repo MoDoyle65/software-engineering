@@ -148,14 +148,5 @@ public class FirebaseConnection {
         }
 
     }
-
-    public void deletePin(String key) {
-        pushRef.child("Pins").child(key).removeValue();
-
-    }
-
-    public void modifyPin(String key, String field, String change) {
-        pushRef.child("Pins").child(key).child(field).setValue(change);
-    }
-
+    
 }
