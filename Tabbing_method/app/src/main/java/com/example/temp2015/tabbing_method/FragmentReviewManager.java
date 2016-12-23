@@ -80,11 +80,12 @@ public class FragmentReviewManager extends Fragment {
         link = (Linker) getActivity();
         String uid = link.getString();
         reviewCreation = (EditText) flayout.findViewById(R.id.Review_of_location);
-        submitReview = (Button) flayout.findViewById((R.id.ReviewCreation));
+        reviewCreation.setEnabled(false);
 
-        Log.d("uid", uid);
-        pushRef = mFirebaseRef.child("hello");
-        mFirebaseConnection = new FirebaseConnection(mFirebaseRef, pushRef);
+        submitReview = (Button) flayout.findViewById((R.id.ReviewCreation));
+        submitReview.setEnabled(false);
+
+        mFirebaseConnection = new FirebaseConnection(getActivity(), mFirebaseRef, uid);
 
         mGoogleApiClientPlace = new GoogleApiClient.Builder(getActivity())
                 .addApi(Places.GEO_DATA_API)
@@ -92,6 +93,7 @@ public class FragmentReviewManager extends Fragment {
 
         builder = new PlacePicker.IntentBuilder();
         myLocation = (AutoCompleteTextView) flayout.findViewById(R.id.myLocation);
+        myLocation.setEnabled(false);
         Log.d("abcd6"," we are here");
 //        mPlacesAdapter = new PlacesAutoCompleteAdapter(this, android.R.layout.simple_list_item_1,
 //                mGoogleApiClientPlace, BOUNDS_GREATER_SYDNEY, null);
@@ -161,6 +163,7 @@ public class FragmentReviewManager extends Fragment {
                     place = PlacePicker.getPlace(data, getActivity());
                     latlngCoord latlng = new latlngCoord(place.getLatLng().latitude, place.getLatLng().longitude);
                     myLocation.setText(place.getName() + "\n " + place.getAddress() + "");
+                    reviewCreation.setEnabled(true);
 
 
 
