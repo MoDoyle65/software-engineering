@@ -1,9 +1,9 @@
 package com.example.temp2015.tabbing_method;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private User mUser;
     private DatabaseReference mFirebaseRef;
     private String uid;
+    private TabHost.TabSpec spec;
+    private TabHost.TabSpec spec1;
+    private TabHost.TabSpec spec2;
+    private TabHost.TabSpec spec3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,28 +82,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         host.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("MAP");
+        spec = host.newTabSpec("MAP");
         spec.setContent(R.id.tab1);
         spec.setIndicator("MAP");
         host.addTab(spec);
 
         //Tab 2
-        spec = host.newTabSpec("Notify");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("Notify");
-        host.addTab(spec);
+        spec1 = host.newTabSpec("Notify");
+        spec1.setContent(R.id.tab2);
+        spec1.setIndicator("Notify");
+        host.addTab(spec1);
 
         //Tab 3
-        spec = host.newTabSpec("Review");
-        spec.setContent(R.id.tab3);
-        spec.setIndicator("Review");
-        host.addTab(spec);
+        spec2 = host.newTabSpec("Review");
+        spec2.setContent(R.id.tab3);
+        spec2.setIndicator("Review");
+        host.addTab(spec2);
 
         // Tab 4
-        spec = host.newTabSpec("Friends");
-        spec.setContent(R.id.tab4);
-        spec.setIndicator("Friends");
-        host.addTab(spec);
+        spec3 = host.newTabSpec("Friends");
+        spec3.setContent(R.id.tab4);
+        spec3.setIndicator("Friends");
+        host.addTab(spec3);
 
 
 
