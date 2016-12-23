@@ -142,7 +142,8 @@ public class FragmentReviewManager extends Fragment {
             @Override
             public void onClick(View view) {
                 String review = reviewCreation.getEditableText().toString();
-                PinData pdata = createReview(place, review);
+
+                PinData pdata = createReview(review);
                 //
 
                 //PinData pdata =
@@ -155,7 +156,7 @@ public class FragmentReviewManager extends Fragment {
         return flayout;
     }
 
-   public PinData createReview(Place place, String review) {
+   public PinData createReview(String review) {
         latlngCoord latlng = new latlngCoord(place.getLatLng().latitude, place.getLatLng().longitude);
         return new PinData(latlng, place.getName().toString(), place.getAddress().toString(), place.getPlaceTypes().toString(),review);
     }
