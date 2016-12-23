@@ -19,17 +19,12 @@ import java.util.HashMap;
 
 public class getPinHeaderCallback implements PinHeaderCallback {
 
-    private String List;
-    public void setList(String List) {this.List =List;}
-
-
     public void onPinHeaderResult(String uid, ArrayList<PinData> pinDataList, GoogleMap googleMap) {
 
         for (PinData pindata : pinDataList) {
             double lat = pindata.getCoord().getLat();
             double lng = pindata.getCoord().getLng();
             LatLng newMarker = new LatLng(lat, lng);
-            Log.d("Testing", List);
 
             googleMap.addMarker(new MarkerOptions().position(newMarker)
                     .title(pindata.getReview())

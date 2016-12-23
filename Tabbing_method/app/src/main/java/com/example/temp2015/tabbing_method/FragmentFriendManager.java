@@ -74,7 +74,7 @@ public class FragmentFriendManager extends Fragment {
         mLinearLayoutManager.setStackFromEnd(false);
         mEmailRecyclerView.setLayoutManager(mLinearLayoutManager);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mFirebaseConnection = new FirebaseConnection(mFirebaseDatabaseReference, uid);
+        mFirebaseConnection = new FirebaseConnection(getActivity(), mFirebaseDatabaseReference, uid);
         mFirebaseAdapter = new FirebaseRecyclerAdapter<User,
                 FriendViewHolder>(
                 User.class,

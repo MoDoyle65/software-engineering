@@ -3,6 +3,7 @@ package com.example.temp2015.tabbing_method;
 /**
  * Created by johnny on 13/12/2016.
  */
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,12 +22,14 @@ public class FirebaseConnection {
     private static DatabaseReference pushRef;
     private static DatabaseReference rootRef;
     private static String uid;
+    private static Context context;
 
 
-    public FirebaseConnection(DatabaseReference rootRef, String uid) {
+    public FirebaseConnection(Context context, DatabaseReference rootRef, String uid) {
         this.uid = uid;
         this.rootRef = rootRef;
         this.pushRef = rootRef.child(uid);
+        this.context = context;
     }
 
     public void createPin(PinData pindata) {
@@ -74,12 +77,12 @@ public class FirebaseConnection {
                 }
             //TODO: What if user email entered?
             }
-            if (isFriend) { System.out.println("Friend added"); }
-            else { System.out.println("Friend not in database");}
+            if (isFriend) { Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show(); }
+            else { Toast.makeText(context, "Friend not in Database", Toast.LENGTH_SHORT).show();}
         }
         @Override
         public void onCancelled(DatabaseError databaseError){
-            System.out.println("Error occured");
+            Toast.makeText(context, "Error Occurred", Toast.LENGTH_SHORT).show();
         }
     }
 

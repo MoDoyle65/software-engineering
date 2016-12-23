@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             mUsername = mFirebaseUser.getDisplayName();
             uid = mFirebaseUser.getUid();
             mUser = new User(mFirebaseUser.getDisplayName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid());
-            mFirebaseConnection = new FirebaseConnection(mFirebaseRef, uid);
+            mFirebaseConnection = new FirebaseConnection(this, mFirebaseRef, uid);
             mFirebaseConnection.setUser(mUser);
 
             Log.d("uid",uid);

@@ -85,7 +85,7 @@ public class FragmentReviewManager extends Fragment {
         submitReview = (Button) flayout.findViewById((R.id.ReviewCreation));
         submitReview.setEnabled(false);
 
-        mFirebaseConnection = new FirebaseConnection(mFirebaseRef, uid);
+        mFirebaseConnection = new FirebaseConnection(getActivity(), mFirebaseRef, uid);
 
         mGoogleApiClientPlace = new GoogleApiClient.Builder(getActivity())
                 .addApi(Places.GEO_DATA_API)
