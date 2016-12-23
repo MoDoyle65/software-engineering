@@ -1,88 +1,61 @@
 package com.example.temp2015.tabbing_method;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, Linker {
 
+<<<<<<< HEAD
     private TabHost tabHost;
+=======
+>>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
     private TabHost host;
     private static final String TAG = "MainActivity";
-    public static final String MESSAGES_CHILD = "Pins";
-    private static final int REQUEST_INVITE = 1;
-    public static final int DEFAULT_MSG_LENGTH_LIMIT = 10;
+
     public static final String ANONYMOUS = "anonymous";
-    private static final String MESSAGE_SENT_EVENT = "message_sent";
     private String mUsername;
     private String mPhotoUrl;
-    private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
-    //private GoogleApiClient mGoogleApiClientPlace;
-    private Button mSendButton;
-    private RecyclerView mMessageRecyclerView;
-    private LinearLayoutManager mLinearLayoutManager;
-    private ProgressBar mProgressBar;
-    private EditText mMessageEditText;
-
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private FirebaseConnection mFirebaseConnection;
-    private DatabaseReference mFirebaseDatabaseReference;
     private User mUser;
-
-    private PlacePicker.IntentBuilder builder;
-    private PlacesAutoCompleteAdapter mPlacesAdapter;
-    private Button pickerBtn;
-    private AutoCompleteTextView myLocation;
-    private static final int PLACE_PICKER_FLAG = 1;
     private DatabaseReference mFirebaseRef;
     private String uid;
+<<<<<<< HEAD
 
     public String name_field;
     public String address_field;
     public String review_field;
 
 
+=======
+>>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mUsername = ANONYMOUS;
-        Map<String, Marker> markerMap = new HashMap<String, Marker>();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -140,6 +113,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         spec.setContent(R.id.tab4);
         spec.setIndicator("Friends");
         host.addTab(spec);
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
     }
 
     @Override
@@ -162,6 +141,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e5d1d67fbcec8d57e6e359d6194d48dc92716c10
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
