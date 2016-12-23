@@ -22,10 +22,7 @@ public class getPinHeaderCallback implements PinHeaderCallback {
     public void onPinHeaderResult(String uid, ArrayList<PinData> pinDataList, GoogleMap googleMap) {
 
         for (PinData pindata : pinDataList) {
-            double lat = pindata.getCoord().getLat();
-            double lng = pindata.getCoord().getLng();
-            LatLng newMarker = new LatLng(lat, lng);
-
+            LatLng newMarker = createMarkerLatLng(pindata);
             googleMap.addMarker(new MarkerOptions().position(newMarker)
                     .title(pindata.getTitle())
                     .snippet(pindata.getReview()));
@@ -34,7 +31,11 @@ public class getPinHeaderCallback implements PinHeaderCallback {
 
     }
 
-
+    public LatLng createMarkerLatLng(PinData pindata){
+        double lat = pindata.getCoord().getLat();
+        double lng = pindata.getCoord().getLng();
+        return new LatLng(lat, lng);
+    }
 
     public void onCancelled(DatabaseError databaseError) {
         System.out.println("Error encountered");
