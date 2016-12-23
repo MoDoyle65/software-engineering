@@ -127,6 +127,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "70653747280-7merrlap2c6sn1rakohj85njrg6jhaas.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.temp2015.tabbing_method",
+            "certificate_hash": "9746F7354AFE3FA6AB5DE237752A60A551DCF2AA"
+          }
+        },
+        {
           "client_id": "70653747280-t0qmfqj1l5kpga29ptoh7ln0b6cqt8to.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
