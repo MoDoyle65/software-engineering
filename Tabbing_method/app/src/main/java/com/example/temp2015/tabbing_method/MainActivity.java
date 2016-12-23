@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, Linker {
+
     private TabHost tabHost;
     private TabHost host;
     private static final String TAG = "MainActivity";
@@ -69,23 +70,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private static final int PLACE_PICKER_FLAG = 1;
     private DatabaseReference mFirebaseRef;
     private String uid;
+
     public String name_field;
     public String address_field;
     public String review_field;
-<<<<<<< HEAD
-    private TabHost.TabSpec spec;
-    private TabHost.TabSpec spec1;
-    private TabHost.TabSpec spec2;
-    private TabHost.TabSpec spec3;
 
-    private FragmentFriendManager fragmentfriendmanager;
-    private FragmentNotificationManager fragmentnotifymanager;
-    private FragmentReviewManager fragmentreviewmanager;
-    private FragmentMapManager fragmentmapmanager;
-=======
-    private GoogleMap googleMap;
-    private Map<String, Marker> markerMap;
->>>>>>> origin/master
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,32 +118,30 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         host.setup();
 
         //Tab 1
-        spec = host.newTabSpec("MAP");
+        TabHost.TabSpec spec = host.newTabSpec("MAP");
         spec.setContent(R.id.tab1);
         spec.setIndicator("MAP");
         host.addTab(spec);
 
         //Tab 2
-        spec1 = host.newTabSpec("Notify");
-        spec1.setContent(R.id.tab2);
-        spec1.setIndicator("Notify");
-        host.addTab(spec1);
+        spec = host.newTabSpec("Notify");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("Notify");
+        host.addTab(spec);
 
         //Tab 3
-        spec2 = host.newTabSpec("Review");
-        spec2.setContent(R.id.tab3);
-        spec2.setIndicator("Review");
-        host.addTab(spec2);
+        spec = host.newTabSpec("Review");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("Review");
+        host.addTab(spec);
 
         // Tab 4
-        spec3 = host.newTabSpec("Friends");
-        spec3.setContent(R.id.tab4);
-        spec3.setIndicator("Friends");
-        host.addTab(spec3);
-
-
-
+        spec = host.newTabSpec("Friends");
+        spec.setContent(R.id.tab4);
+        spec.setIndicator("Friends");
+        host.addTab(spec);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -173,64 +161,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             default: return super.onOptionsItemSelected(item);
         }
     }
-
-<<<<<<< HEAD
-    @Override
-    public void onTabChanged(String tabId) {
-            Log.d("123456789", tabId);
-          if (tabId.equals("MAP"))
-          {
-
-              fragmentmapmanager = new FragmentMapManager();
-              FragmentManager fragmentmanager = getFragmentManager();
-              android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentmapmanager);
-              ft.commit();
-              host.getTabContentView();
-          }
-
-        if (tabId.equals("Notify"))
-        {
-
-            fragmentnotifymanager = new FragmentNotificationManager();
-            FragmentManager fragmentmanager = getFragmentManager();
-            android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentnotifymanager);
-            ft.commit();
-            host.getTabContentView();
-        }
-
-        if (tabId.equals("Friends"))
-        {
-            fragmentfriendmanager = new FragmentFriendManager();
-            FragmentManager fragmentmanager = getFragmentManager();
-            android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentfriendmanager);
-            ft.commit();
-            host.getTabContentView();
-        }
-
-        if (tabId.equals("Review"))
-        {
-            fragmentreviewmanager = new FragmentReviewManager();
-            FragmentManager fragmentmanager = getFragmentManager();
-            //this.getFragmentManager().beginTransaction().remove(fragmentreviewmanager).commit();
-            //this.getFragmentManager().beginTransaction().remove(fragmentmapmanager).commit();
-            //this.getFragmentManager().beginTransaction().remove(fragmentfriendmanager).commit();
-            //this.getFragmentManager().beginTransaction().remove(fragmentnotifymanager).commit();
-
-
-            android.app.FragmentTransaction ft = fragmentmanager.beginTransaction().replace(android.R.id.tabcontent,fragmentreviewmanager);
-            ft.commit();
-
-            this.getFragmentManager().beginTransaction().remove(fragmentreviewmanager).commit();
-            host.getTabContentView();
-
-        }
-
-
-
-    }
-
-=======
->>>>>>> origin/master
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
