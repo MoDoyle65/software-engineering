@@ -1,9 +1,8 @@
 package com.example.temp2015.tabbing_method;
 
 import android.app.Fragment;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,9 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,14 +37,6 @@ public class FragmentFriendManager extends Fragment {
     }
 
     private static final String TAG = "FriendActivity";
-    public static final int DEFAULT_EMAIL_LENGTH_LIMIT = 100;
-    //public static final String ANONYMOUS = "anonymous";
-    //private static final String MESSAGE_SENT_EVENT = "message_sent";
-    //private String mUsername;
-    //private String mPhotoUrl;
-    //private String key;
-    private SharedPreferences mSharedPreferences;
-
     private Button mAddButton;
     private RecyclerView mEmailRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -59,15 +48,12 @@ public class FragmentFriendManager extends Fragment {
     private Linker link;
 
 
-    @Nullable
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View friendLayout = (RelativeLayout) inflater.inflate(R.layout.fragment_friend_manager,container,false);
+        View friendLayout = inflater.inflate(R.layout.fragment_friend_manager,container,false);
        link = (Linker) getActivity();
         String uid = link.getString();
-        Log.d("123456", uid);
         mProgressBar = (ProgressBar) friendLayout.findViewById(R.id.progressBar);
         mEmailRecyclerView = (RecyclerView) friendLayout.findViewById(R.id.emailRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
@@ -90,7 +76,6 @@ public class FragmentFriendManager extends Fragment {
                 viewHolder.nameTextView.setText(friend.getName());
                 viewHolder.friendImageView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        //v.getId() will give you the image id
                         mFirebaseConnection.removeFriend(friend.getUid());
                     }
                 });
@@ -107,7 +92,6 @@ public class FragmentFriendManager extends Fragment {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
-                int emailCount = mFirebaseAdapter.getItemCount();
 
             }
         });
@@ -152,8 +136,6 @@ public class FragmentFriendManager extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in.
-        // TODO: Add code to check if user is signed in.
     }
 
     @Override

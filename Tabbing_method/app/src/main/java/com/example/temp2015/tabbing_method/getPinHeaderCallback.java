@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class getPinHeaderCallback implements PinHeaderCallback {
 
-    public void onPinHeaderResult(String uid, ArrayList<PinData> pinDataList, GoogleMap googleMap) {
+    public void onPinHeaderResult(ArrayList<PinData> pinDataList, GoogleMap googleMap) {
 
         for (PinData pindata : pinDataList) {
             double lat = pindata.getCoord().getLat();

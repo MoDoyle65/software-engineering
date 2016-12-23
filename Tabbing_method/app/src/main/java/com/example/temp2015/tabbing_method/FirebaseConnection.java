@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FirebaseConnection {
 
@@ -108,11 +107,11 @@ public class FirebaseConnection {
             for (DataSnapshot childSnap: dataSnapshot.getChildren()) {
                 User myFriend = childSnap.getValue(User.class);
                 String uidFriend = myFriend.getUid();
-                UserPinDownloadListener pinFriendListener = new UserPinDownloadListener(uidFriend,callback, googleMap);
+                UserPinDownloadListener pinFriendListener = new UserPinDownloadListener(callback, googleMap);
                 rootRef.child(uidFriend).child("Pins").addValueEventListener(pinFriendListener);
 
             }
-            UserPinDownloadListener myPinsListener = new UserPinDownloadListener(uid, callback, googleMap);
+            UserPinDownloadListener myPinsListener = new UserPinDownloadListener(callback, googleMap);
             pushRef.child("Pins").addValueEventListener(myPinsListener);
         }
         @Override
@@ -128,20 +127,20 @@ public class FirebaseConnection {
         private final GoogleMap googleMap;
 
 
-        UserPinDownloadListener(String uid, PinHeaderCallback callback, GoogleMap googleMap) {
+        UserPinDownloadListener(PinHeaderCallback callback, GoogleMap googleMap) {
             this.callback = callback;
             this.googleMap = googleMap;
         }
 
         @Override
         public void onDataChange(DataSnapshot dataSnapshot){
-            ArrayList<PinData> pinDataList = new ArrayList<PinData>();
+            ArrayList<PinData> pinDataList = new ArrayList<>();
             for (DataSnapshot childSnap: dataSnapshot.getChildren()) {
                 PinData pindata = childSnap.getValue(PinData.class);
                 pinDataList.add(pindata);
             }
 
-            this.callback.onPinHeaderResult(uid, pinDataList, googleMap);
+            this.callback.onPinHeaderResult(pinDataList, googleMap);
         }
         @Override
         public void onCancelled(DatabaseError databaseError){
@@ -150,17 +149,4 @@ public class FirebaseConnection {
 
     }
 
-    public void deletePin(String key) {
-        pushRef.child("Pins").child(key).removeValue();
-
-    }
-
-    public void modifyPin(String key, String field, String change) {
-        pushRef.child("Pins").child(key).child(field).setValue(change);
-    }
-
-    /*public void getUserPinHeaders(PinHeaderCallback callback, GoogleMap googleMap) {
-        UserPinDownloadListener headListener = new UserPinDownloadListener(callback, googleMap);
-        pushRef.child("Pins").addListenerForSingleValueEvent(headListener);
-    }*/
 }

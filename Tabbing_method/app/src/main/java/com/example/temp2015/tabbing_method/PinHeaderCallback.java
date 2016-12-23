@@ -13,6 +13,6 @@ import java.util.HashMap;
 
 public interface PinHeaderCallback {
 
-    public void onPinHeaderResult(String uid, ArrayList<PinData> pinDataList, GoogleMap googleMap);
+    public void onPinHeaderResult(ArrayList<PinData> pinDataList, GoogleMap googleMap);
     public void onCancelled(DatabaseError databaseError);
 }
