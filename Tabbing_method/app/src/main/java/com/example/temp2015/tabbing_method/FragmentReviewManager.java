@@ -141,9 +141,11 @@ public class FragmentReviewManager extends Fragment {
         submitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                latlngCoord latlng = new latlngCoord(place.getLatLng().latitude, place.getLatLng().longitude);
                 String review = reviewCreation.getEditableText().toString();
-                PinData pdata = new PinData(latlng, place.getName().toString(), place.getAddress().toString(), place.getPlaceTypes().toString(),review);
+                PinData pdata = createReview(place, review);
+                //
+
+                //PinData pdata =
                 mFirebaseConnection.createPin(pdata);
                 myLocation.setText("");
                 reviewCreation.setText("");
@@ -151,7 +153,11 @@ public class FragmentReviewManager extends Fragment {
             }
         });
         return flayout;
+    }
 
+   public PinData createReview(Place place, String review) {
+        latlngCoord latlng = new latlngCoord(place.getLatLng().latitude, place.getLatLng().longitude);
+        return new PinData(latlng, place.getName().toString(), place.getAddress().toString(), place.getPlaceTypes().toString(),review);
     }
 
     @Override
@@ -161,12 +167,8 @@ public class FragmentReviewManager extends Fragment {
             switch (requestCode) {
                 case PLACE_PICKER_FLAG:
                     place = PlacePicker.getPlace(data, getActivity());
-                    latlngCoord latlng = new latlngCoord(place.getLatLng().latitude, place.getLatLng().longitude);
                     myLocation.setText(place.getName() + "\n " + place.getAddress() + "");
                     reviewCreation.setEnabled(true);
-
-
-
                     break;
             }
         }
