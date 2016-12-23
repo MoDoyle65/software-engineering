@@ -51,6 +51,7 @@ public class FragmentReviewManager extends Fragment {
     private FirebaseConnection mFirebaseConnection;
     private Linker link;
     private Button submitReview;
+    private int REVIEW_LIMIT = 40;
 
     private EditText reviewCreation;
     private Place place;
@@ -85,6 +86,8 @@ public class FragmentReviewManager extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
+                    Toast toast = Toast.makeText(getActivity(), "Loading, please wait...", Toast.LENGTH_SHORT);
+                    toast.show();
                     builder = new PlacePicker.IntentBuilder();
                     Intent intent = builder.build(getActivity());
                     // Start the Intent by requesting a result, identified by a request code.
@@ -124,18 +127,20 @@ public class FragmentReviewManager extends Fragment {
             public void onClick(View view) {
                 String review = reviewCreation.getEditableText().toString();
 
-                PinData pdata = createReview(review);
-                mFirebaseConnection.createPin(pdata);
-                myLocation.setText("");
-                reviewCreation.setText("");
+                if(!checkReviewUnderLimit(review , REVIEW_LIMIT)) {
 
-                Context context = getActivity();
-                CharSequence text = "Review submitted";
-                int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getActivity(), "Review too long!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else {
+                    PinData pdata = createReview(review);
+                    mFirebaseConnection.createPin(pdata);
+                    myLocation.setText("");
+                    reviewCreation.setText("");
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
+                    Toast toast = Toast.makeText(getActivity(), "Review submitted", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
         return flayout;
@@ -197,6 +202,9 @@ public class FragmentReviewManager extends Fragment {
         }
     };
 
+    public boolean checkReviewUnderLimit(String review, int limit) {
+       return (review.length() <= limit);
+    }
 
 }
 

@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -56,9 +57,8 @@ public class FragmentFriendManager extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View friendLayout = (RelativeLayout) inflater.inflate(R.layout.fragment_friend_manager,container,false);
-       link = (Linker) getActivity();
+        link = (Linker) getActivity();
         String uid = link.getString();
-        Log.d("123456", uid);
         mProgressBar = (ProgressBar) friendLayout.findViewById(R.id.progressBar);
         mEmailRecyclerView = (RecyclerView) friendLayout.findViewById(R.id.emailRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
@@ -129,16 +129,29 @@ public class FragmentFriendManager extends Fragment {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User friend = new
-                        User("dummy",mEmailEditText.getText().toString(),"dummy");
-                Log.d("friend", friend.getEmail());
-                mFirebaseConnection.checkFriendisUser(friend);
-                mEmailEditText.setText("");
+                String email = mEmailEditText.getText().toString();
+                String emailTrim = email.trim();
+                if (isEmailValid(emailTrim)) {
+                    User friend = new
+                            User("dummy", emailTrim, "dummy");
+                    Log.d("friend", friend.getEmail());
+                    mFirebaseConnection.checkFriendisUser(friend);
+                    mEmailEditText.setText("");
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "Invalid Email", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
         return friendLayout;
     }
+
+    public boolean isEmailValid(String emailTrim) {
+        return (!emailTrim.endsWith(".") && (emailTrim.contains("@")));
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
