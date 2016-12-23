@@ -96,7 +96,6 @@ public class FragmentMapManager extends Fragment implements GoogleApiClient.Conn
         return mapLayout;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();

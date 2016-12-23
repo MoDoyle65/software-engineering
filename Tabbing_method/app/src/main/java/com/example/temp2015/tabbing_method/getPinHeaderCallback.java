@@ -33,20 +33,7 @@ public class getPinHeaderCallback implements PinHeaderCallback {
         }
 
     }
-
-
-
-    //for (PinData pindata : pinDataList) {
-      //  double lat = pindata.getCoord().getLat();
-        //double lng = pindata.getCoord().getLng();
-        //LatLng newMarker = new LatLng(lat,lng);
-
-//        googleMap.addMarker(new MarkerOptions().position(newMarker)
-  //              .title(pindata.getReview())
-    //            .snippet(pindata.getAddress()));
-        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
-
-
+    
     public void onCancelled(DatabaseError databaseError) {
         System.out.println("Error encountered");
 
