@@ -1,7 +1,6 @@
 package com.example.temp2015.tabbing_method;
 
 import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -40,14 +39,6 @@ public class FragmentFriendManager extends Fragment {
     }
 
     private static final String TAG = "FriendActivity";
-    public static final int DEFAULT_EMAIL_LENGTH_LIMIT = 100;
-    //public static final String ANONYMOUS = "anonymous";
-    //private static final String MESSAGE_SENT_EVENT = "message_sent";
-    //private String mUsername;
-    //private String mPhotoUrl;
-    //private String key;
-    private SharedPreferences mSharedPreferences;
-
     private Button mAddButton;
     private RecyclerView mEmailRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;

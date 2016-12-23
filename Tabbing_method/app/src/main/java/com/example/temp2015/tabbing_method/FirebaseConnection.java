@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FirebaseConnection {
 
@@ -159,8 +158,4 @@ public class FirebaseConnection {
         pushRef.child("Pins").child(key).child(field).setValue(change);
     }
 
-    /*public void getUserPinHeaders(PinHeaderCallback callback, GoogleMap googleMap) {
-        UserPinDownloadListener headListener = new UserPinDownloadListener(callback, googleMap);
-        pushRef.child("Pins").addListenerForSingleValueEvent(headListener);
-    }*/
 }
