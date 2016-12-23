@@ -7,4 +7,6 @@ package com.example.temp2015.tabbing_method;
 public interface Linker {
      void setString(String uid);
      String getString();
+
 }
+

@@ -2,23 +2,25 @@ package com.example.temp2015.tabbing_method;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Created by temp2015 on 28-Nov-16.
@@ -33,6 +35,8 @@ public class FragmentMapManager extends Fragment {
     private DatabaseReference mFirebaseRef;
     private DatabaseReference pushRef;
     private getPinHeaderCallback pincb = new getPinHeaderCallback();
+    private ArrayList<PinData> pinDataMap;
+    private Button refreshButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,8 +48,18 @@ public class FragmentMapManager extends Fragment {
         mMapView.onResume(); // needed to get the map to display immediately
         mFirebaseRef = FirebaseDatabase.getInstance().getReference();
         pushRef = mFirebaseRef.child(uid);
-        mFirebaseConnection1 = new FirebaseConnection(mFirebaseRef,pushRef);
-        mFirebaseConnection2 = new FirebaseConnection(mFirebaseRef,mFirebaseRef.child(uid));
+        mFirebaseConnection1 = new FirebaseConnection(mFirebaseRef,uid);
+        refreshButton = (Button) mapLayout.findViewById(R.id.Refresh);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                googleMap.clear();
+                pincb.setList("Stringgg");
+                //mFirebaseConnection1.getUserPinHeaders(pincb, googleMap);
+                mFirebaseConnection1.getPins(pincb, googleMap);
+            }
+        });
+        //mFirebaseConnection2 = new FirebaseConnection(mFirebaseRef,mFirebaseRef.child(uid));
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -58,14 +72,16 @@ public class FragmentMapManager extends Fragment {
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
                 googleMap.clear();
-                mFirebaseConnection1.getUserPinHeaders(pincb, googleMap);
-                mFirebaseConnection2.getFriendsPins(pincb, googleMap);
+                pincb.setList("Stringgg");
+                //mFirebaseConnection1.getUserPinHeaders(pincb, googleMap);
+                mFirebaseConnection1.getPins(pincb, googleMap);
 
             }
-        });
+            });
 
         return mapLayout;
     }
+
 
     @Override
     public void onResume() {
@@ -75,8 +91,8 @@ public class FragmentMapManager extends Fragment {
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
                 googleMap.clear();
-                mFirebaseConnection1.getUserPinHeaders(pincb, googleMap);
-                mFirebaseConnection2.getFriendsPins(pincb, googleMap);
+                mFirebaseConnection1.getPins(pincb, googleMap);
+
             }
         });
         mMapView.onResume();

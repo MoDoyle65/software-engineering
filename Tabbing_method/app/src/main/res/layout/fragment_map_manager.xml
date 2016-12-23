@@ -8,4 +8,15 @@ android:layout_height="match_parent" >
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 
+    <Button
+        android:text="Sync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:id="@+id/Refresh" />
+
 </RelativeLayout>

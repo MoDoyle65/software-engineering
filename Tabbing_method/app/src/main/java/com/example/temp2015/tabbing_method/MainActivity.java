@@ -24,12 +24,17 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, Linker, TabHost.OnTabChangeListener {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, Linker {
     private TabHost tabHost;
     private TabHost host;
     private static final String TAG = "MainActivity";
@@ -65,13 +70,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public String name_field;
     public String address_field;
     public String review_field;
+    private GoogleMap googleMap;
+    private Map<String, Marker> markerMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mUsername = ANONYMOUS;
-
+        Map<String, Marker> markerMap = new HashMap<String, Marker>();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -90,10 +97,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
-            mUser = new User(mFirebaseUser.getDisplayName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid());
-            mFirebaseConnection = new FirebaseConnection(mFirebaseRef, mFirebaseRef.child(mFirebaseUser.getUid()));
-            mFirebaseConnection.setUser(mUser);
             uid = mFirebaseUser.getUid();
+            mUser = new User(mFirebaseUser.getDisplayName(),mFirebaseUser.getEmail(), mFirebaseUser.getUid());
+            mFirebaseConnection = new FirebaseConnection(mFirebaseRef, uid);
+            mFirebaseConnection.setUser(mUser);
+
             Log.d("uid",uid);
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
@@ -129,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         spec.setIndicator("Friends");
         host.addTab(spec);
 
-        host.setOnTabChangedListener(this);
 
 
     }
@@ -151,18 +158,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 return true;
             default: return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onTabChanged(String tabId) {
-            Log.d("123456789", tabId);
-          if (tabId =="MAP")
-          {
-              //tabHost.clearAnimation();
-          }
-            //host.refreshDrawableState();
-            //host.destroyDrawingCache();
-            //host.getTabContentView().refreshDrawableState();
     }
 
 
