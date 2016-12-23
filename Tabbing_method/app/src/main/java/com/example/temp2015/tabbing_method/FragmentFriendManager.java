@@ -125,7 +125,6 @@ public class FragmentFriendManager extends Fragment {
             }
         });
 
-
         mAddButton = (Button) friendLayout.findViewById(R.id.addButton);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override

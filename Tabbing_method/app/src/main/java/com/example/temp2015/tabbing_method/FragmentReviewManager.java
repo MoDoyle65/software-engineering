@@ -2,11 +2,9 @@ package com.example.temp2015.tabbing_method;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,18 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -35,14 +25,10 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.vision.text.Line;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -57,7 +43,6 @@ public class FragmentReviewManager extends Fragment {
     private Button pickerBtn;
     private AutoCompleteTextView myLocation;
     private static final int PLACE_PICKER_FLAG = 1;
-    //private FirebaseConnection mFirebaseConnection;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mFirebaseRef;
     private DatabaseReference pushRef;
@@ -71,7 +56,6 @@ public class FragmentReviewManager extends Fragment {
     private Place place;
 
     @Nullable
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,9 +78,6 @@ public class FragmentReviewManager extends Fragment {
         builder = new PlacePicker.IntentBuilder();
         myLocation = (AutoCompleteTextView) flayout.findViewById(R.id.myLocation);
         myLocation.setEnabled(false);
-        Log.d("abcd6"," we are here");
-//        mPlacesAdapter = new PlacesAutoCompleteAdapter(this, android.R.layout.simple_list_item_1,
-//                mGoogleApiClientPlace, BOUNDS_GREATER_SYDNEY, null);
         myLocation.setOnItemClickListener(mAutocompleteClickListener);
         myLocation.setOnKeyListener(null);
         pickerBtn = (Button) flayout.findViewById(R.id.pickerBtn);
@@ -144,12 +125,16 @@ public class FragmentReviewManager extends Fragment {
                 String review = reviewCreation.getEditableText().toString();
 
                 PinData pdata = createReview(review);
-                //
-
-                //PinData pdata =
                 mFirebaseConnection.createPin(pdata);
                 myLocation.setText("");
                 reviewCreation.setText("");
+
+                Context context = getActivity();
+                CharSequence text = "Review submitted";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
 
             }
         });

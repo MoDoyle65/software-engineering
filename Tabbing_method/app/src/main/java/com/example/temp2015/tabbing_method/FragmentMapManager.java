@@ -41,11 +41,9 @@ public class FragmentMapManager extends Fragment implements GoogleApiClient.Conn
     private MapView mMapView;
 
     private Linker link;
-    private ArrayList<PinData> pinDataMap;
     private Button refreshButton;
     private static final String TAG = "TAG";
-    private FirebaseConnection mFirebaseConnection1, mFirebaseConnection2;
-    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseConnection mFirebaseConnection1;
     private DatabaseReference mFirebaseRef;
     private DatabaseReference pushRef;
     private getPinHeaderCallback pincb = new getPinHeaderCallback();

@@ -54,4 +54,14 @@
         android:textSize="25dp"
         android:id="@+id/checkBox" />
 
+    <TextView
+        android:text="FEATURE COMING SOON !!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textColor="#FF0000"
+        android:textSize="25dp"
+        android:id="@+id/textView4"/>
+
 </RelativeLayout>
