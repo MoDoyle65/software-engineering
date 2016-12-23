@@ -89,7 +89,7 @@ public class FragmentMapManager extends Fragment implements GoogleApiClient.Conn
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
     private final LatLng mDefaultLocation = new LatLng(53.350140, -6.266155);
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 1;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
     private Location mCurrentLocation;
