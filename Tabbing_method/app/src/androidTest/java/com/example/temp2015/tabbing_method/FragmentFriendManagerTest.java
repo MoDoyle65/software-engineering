@@ -16,48 +16,49 @@ public class FragmentFriendManagerTest {
 
 
     @Test
-    public void isEmailValidtest0() throws Exception {
+    public void isEmailValidTestValidEmail() throws Exception {
         FragmentFriendManager emailCheck = new FragmentFriendManager();
-        email="viet.nguyen@ucdconnect.ie";
+        email="UCD.student@ucdconnect.ie";
         emailValid = emailCheck.isEmailValid(email);
         valid = true;
-        assertEquals("email is valid genuine email entered", emailValid, valid);
+        assertEquals("Email is valid genuine email entered", emailValid, valid);
     }
 
     @Test
-    public void isEmailValidtest1() throws Exception {
+    public void isEmailValidTestEmailMissingTopLevelDomainName() throws Exception {
         FragmentFriendManager emailCheck = new FragmentFriendManager();
-        email="viet.nguyen@ucdconnect";
+        email="UCD.student@ucdconnect";
         emailValid = emailCheck.isEmailValid(email);
         valid = true;
-        assertEquals("email is valid but email but wrong format", emailValid, valid);
+        assertEquals("Email is valid but email is missing the top-level domain name", emailValid, valid);
     }
 
     @Test
-    public void isEmailValidtest2() throws Exception {
+    public void isEmailValidTestEMailMissingAtSymbol() throws Exception {
         FragmentFriendManager emailCheck = new FragmentFriendManager();
-        email="viet.nguyenucdconnect.ie";
+        email="UCD.studentucdconnect.ie";
         emailValid = emailCheck.isEmailValid(email);
         valid = false;
-        assertEquals("email is invalid missing @ sign", emailValid, valid);
+        assertEquals("Email is invalid missing @ sign", emailValid, valid);
     }
 
     @Test
-    public void isEmailValidtest3() throws Exception {
+    public void isEmailValidTestEmailWithDotAtTheEnd() throws Exception {
         FragmentFriendManager emailCheck = new FragmentFriendManager();
-        email="viet.nguyen@ucdconnect.ie.";
+        email="UCD.student@ucdconnect.ie.";
         emailValid = emailCheck.isEmailValid(email);
         valid = false;
-        assertEquals("email is invalid last character is a '.' ", emailValid, valid);
+        assertEquals("Email is invalid last character is a '.' ", emailValid, valid);
     }
 
     @Test
-    public void isEmailValidtest4() throws Exception {
+    public void isEmailValidTestEmailMissingAtSybolAndDotAtTheEnd() throws Exception {
         FragmentFriendManager emailCheck = new FragmentFriendManager();
-        email="viet.nguyenucdconnect.ie.";
+        email="UCD.studentucdconnect.ie.";
         emailValid = emailCheck.isEmailValid(email);
         valid = false;
-        assertEquals("email is invalid missing @ and  last character is a '.' ", emailValid, valid);
+        assertEquals("Email is invalid missing @ and  last character is a '.' ", emailValid, valid);
     }
 
+    // we do not need to check if  users trys to add a null friend as the button cannot be pressed untill a string of atleast one character has been entered
 }
